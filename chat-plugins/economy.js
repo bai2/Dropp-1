@@ -4,7 +4,7 @@ let fs = require('fs');
 let path = require('path');
 
 let shop = [
-	['Symbol', 'Compra un symbolo personalizado para aparecer en la lista de users. (Temporal se borrara en el siguente reinicio del server)', 1000],
+	['Símbolo', 'Compra un símbolo personalizado para aparecer en la lista de users. (Temporal se borrara en el siguente reinicio del server)', 1000],
 	['Arreglo', 'Compra la habilidad de cambiar tu avatar, tarjeta de entrenador o icono. (No lo compres, si no tienes ninguno de los tres objetos)', 2500],
 	['Avatar personalizado', 'Compras el derecho de un avatar personalizado hablar con un admin. (La imagen requiere  ser de 80x80,si no se mostrara mal)', 6000],
 	['Icono', 'Compra el derecho de tener un icono junto a tu nombre.', 3500],
