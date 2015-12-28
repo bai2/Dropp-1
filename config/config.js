@@ -263,6 +263,7 @@ exports.grouplist = [
 		inherit: '@',
 		jurisdiction: '@u',
 		promote: 'u',
+		clans: true,
 		roomowner: true,
 		roommod: true,
 		roomdriver: true,
