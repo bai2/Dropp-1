@@ -4,13 +4,12 @@ let fs = require('fs');
 let path = require('path');
 
 let shop = [
-	['Symbol', 'Buys a custom symbol to go infront of name and puts you at top of userlist. (Temporary until restart, certain symbols are blocked)', 5],
-	['Fix', 'Buys the ability to alter your current custom avatar or trainer card. (don\'t buy if you have neither)', 10],
-	['Avatar', 'Buys an custom avatar to be applied to your name (You supply. Images larger than 80x80 may not show correctly)', 20],
-	['League Room', 'Purchases a room at a reduced rate for use with a league.  A roster must be supplied with at least 10 members for this room.', 25],
-	['Trainer', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 40],
-	['Staff Help', 'Staff member will help set up roomintros and anything else needed in a room. Response may not be immediate.', 50],
-	['Room', 'Buys a chatroom for you to own. (within reason, can be refused)', 100]
+	['Symbol', 'Compras un symbolo personalizado para aparecer en la lista de users. (Temporal se borrara en el siguente reinicio del server)', 1000],
+	['Cambio de Avatar', 'Compras la habilidad de cambiar tu avatar o tarjeta de entrenador. (No lo compres, si no tienes ninguna de las dos)', 2500],
+	['Avatar personalizado', 'Compras el derecho de un avatar personalizado hablar con un admin. (La imagen tiene que ser de 80x80,si no se mostrara mal)', 6000],
+	['Icono', 'Compras el derecho de tener un icono junto a tu nombre.', 3500],
+	['Tarjeta de entrenador personalizada', 'Compras el derecho de una tarjeta de entrenador personalizada hablar con un admin si no hay un  admin hablar con lizardd. (Tu solicitud, puede ser rechazada)', 4000],
+	['Sala', 'Compras el poder, de tener tu propia sala. (Razon para poder ser publica, si no sera rechazada y sera privada)', 10000]
 ];
 
 let shopDisplay = getShopDisplay(shop);
@@ -222,7 +221,7 @@ exports.commands = {
 		if (Users.get(username)) Users(username).popup(user.name + " has transferred " + amount + ". You now have " + targetTotal + ".");
 		logMoney(user.name + " transferred " + amount + " to " + username + ". " + user.name + " now has " + userTotal + " and " + username + " now has " + targetTotal + ".");
 	},
-	transfermoneyhelp: ["/transfer [user], [amount] - Transfer a certain amount of money to a user."],
+	transfermoneyhelp: ["/donar [user], [amount] - Transfer a certain amount of money to a user."],
 
 	store: 'shop',
 	shop: function (target, room, user) {
