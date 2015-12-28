@@ -9,8 +9,10 @@ let shop = [
 	['Avatar personalizado', 'Compras el derecho de un avatar personalizado hablar con un admin. (La imagen tiene que ser de 80x80,si no se mostrara mal)', 6000],
 	['Icono', 'Compras el derecho de tener un icono junto a tu nombre.', 3500],
 	['Tarjeta de entrenador personalizada', 'Compras el derecho de una tarjeta de entrenador personalizada hablar con un admin si no hay un  admin hablar con lizardd. (Tu solicitud, puede ser rechazada)', 4000],
-	['Sala', 'Compras el poder, de tener tu propia sala. (Razon para poder ser publica, si no sera rechazada y sera privada)', 10000]
+	['Sala', 'Compras el poder, de tener tu propia sala. (Razon para poder ser publica, si no sera rechazada y sera privada)', 10000],
+        ['NameColor', 'Compras el derecho, de tener un color personalizado. ',3000].
 ];
+
 
 let shopDisplay = getShopDisplay(shop);
 
