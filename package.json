@@ -2,9 +2,11 @@
   "name": "Pokemon-Showdown",
   "version": "0.10.2",
   "dependencies": {
+    "MD5": "^1.3.0",
     "cloud-env": "0.1.0",
     "elo-rank": "^0.2.2",
     "es6-shim": "0.27.1",
+    "geoip-ultralight": "^0.1.2",
     "moment": "2.10.6",
     "node-static": "0.7.6",
     "origindb": "2.0.0",
