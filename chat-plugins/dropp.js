@@ -1,10 +1,16 @@
 var request = require('request');
 
 exports.commands = {
-    pic: 'image',
-	image: function(target, room, user) {
-		if (!target) return this.sendReply('/image [url] - Shows an image using /a. Requires ~.');
-		return this.parse('/a |raw|<center><img src="' + target + '"><br><i>Imagen mostrada por ' + user.name + '</i>');
+    postimage: 'image',
+	image: function (target, room, user) {
+		if (!target) return this.sendReply('Usage: /image link, size');
+		if (!this.can('ban', room)) return false;
+		if (!this.canBroadcast()) return;
+
+		var targets = target.split(',');
+		if (targets.length !== 2) {
+			room.addRaw('<center><img src="' + Tools.escapeHTML(targets[0]) + '"><br><i>Imagen mostrada por ' + user.name + '</i></center></center>');
+		}
 	},
 	
 	regdate: function(target, room, user, connection) {
