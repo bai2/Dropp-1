@@ -4,13 +4,16 @@ let fs = require('fs');
 let path = require('path');
 
 let shop = [
-	['Símbolo', 'Compra un símbolo personalizado para aparecer en la lista de users. (Temporal se borrara en el siguente reinicio del server)', 1000],
-	['Arreglo', 'Compra la habilidad de cambiar tu avatar, tarjeta de entrenador o icono. (No lo compres, si no tienes ninguno de los tres objetos)', 2500],
-	['Avatar personalizado', 'Compras el derecho de un avatar personalizado hablar con un admin. (La imagen requiere  ser de 80x80,si no se mostrara mal)', 6000],
+
+	['Sala de Chat', 'Compra tu propia sala en el servidor.Será pública o privada en función del motivo de su compra.', 10000],
+	['Avatar Personalizado', 'Compras el derecho de tener un avatar personalizadom, puedes dar una imagen o puedes solicitar la creacion de un avatar a <b>Lizardd o HAX★NYAN★CAT~1.</b>',6000],
+	['Tarjeta de entrenador personalizada', 'Compras el derecho a una "Tarjeta de Entrenador personalizada". Puedes hablar con un admin o con Lizardd para su creacion.', 4000],
 	['Icono', 'Compra el derecho de tener un icono junto a tu nombre.', 3500],
-	['Tarjeta de entrenador personalizada', 'Compras el derecho de una tarjeta de entrenador personalizada hablar con un admin si no hay un  admin hablar con lizardd. (Tu solicitud, puede ser rechazada)', 4000],
-	['Sala', 'Compra el poder de tener tu propia sala. (Es necesaria una razon, si no sera rechazada)', 10000],
-        ['NameColor', 'Compra  el derecho de tener un color personalizado. ',3000].
+	['NameColor', 'Compra  el derecho de tener un color personalizado. ',3000],
+	['Arreglo', 'Compra la habilidad de cambiar tu avatar, tarjeta de entrenador,icono o modificar tu sala. (No lo compres, si no tienes ninguno de los tres objetos)', 1000],
+	['Símbolo', 'Compra un símbolo personalizado que aparecerá al lado de tu nick en la lista de usuarios. (Temporal se borrara en el siguente reinicio del server)', 1000]
+
+    
 ];
 
 
@@ -28,8 +31,8 @@ let shopDisplay = getShopDisplay(shop);
  * @returns {String}
  */
 function currencyName(amount) {
-	let name = " buck";
-	return amount === 1 ? name : name + "s";
+	let name = " PokéDolares";
+	return amount === 1 ? name : name + "";
 }
 
 /**
@@ -40,9 +43,9 @@ function currencyName(amount) {
  */
 function isMoney(money) {
 	let numMoney = Number(money);
-	if (isNaN(money)) return "Must be a number.";
-	if (String(money).includes('.')) return "Cannot contain a decimal.";
-	if (numMoney < 1) return "Cannot be less than one buck.";
+	if (isNaN(money)) return "Tiene que ser un número valido.";
+	if (String(money).includes('.')) return "No puede contener un número decimal.";
+	if (numMoney < 5) return "No puede ser inferior a 5 pds.";
 	return numMoney;
 }
 
@@ -67,7 +70,7 @@ function logMoney(message) {
  */
 function getShopDisplay(shop) {
 	let display = "<table border='1' cellspacing='0' cellpadding='5' width='100%'>" +
-					"<tbody><tr><th>Command</th><th>Description</th><th>Cost</th></tr>";
+					"<tbody><tr><th>Articulo</th><th>Descripción</th><th>Precio</th></tr>";
 	let start = 0;
 	while (start < shop.length) {
 		display += "<tr>" +
@@ -77,7 +80,7 @@ function getShopDisplay(shop) {
 					"</tr>";
 		start++;
 	}
-	display += "</tbody></table><center>To buy an item from the shop, use /buy <em>command</em>.</center>";
+	display += "</tbody></table><center>Tambien puedes comprar articulos usando el comando <em>/buy articulo</em>.<br>Se recomienda que al comprar un articulo, contactates lo mas rapido posible a un Admin</center>";
 	return display;
 }
 
@@ -98,12 +101,12 @@ function findItem(item, money) {
 		price = shop[len][2];
 		if (price > money) {
 			amount = price - money;
-			this.errorReply("You don't have you enough money for this. You need " + amount + currencyName(amount) + " more to buy " + item + ".");
+			this.errorReply("No tienes suficiente dinero para comprar este artículo, necesitas reunir " + amount + currencyName(amount) + ".");
 			return false;
 		}
 		return price;
 	}
-	this.errorReply(item + " not found in shop.");
+	this.errorReply("Este no es un Articulo valido.");
 }
 
 /**
@@ -114,13 +117,12 @@ function findItem(item, money) {
  * @param {Number} cost - for lottery
  */
 function handleBoughtItem(item, user, cost) {
-	if (item === 'symbol') {
+	if (item === 'símbolo') {
 		user.canCustomSymbol = true;
-		this.sendReply("You have purchased a custom symbol. You can use /customsymbol to get your custom symbol.");
-		this.sendReply("You will have this until you log off for more than an hour.");
-		this.sendReply("If you do not want your custom symbol anymore, you may use /resetsymbol to go back to your old symbol.");
+		this.sendReply("Has comprado un símbolo, ahora tienes acceso al comando /customsymbol [simbolo].");
+		this.sendReply("Puedes quitarte el símbolo con el comando /resetsymbol.");
 	} else {
-		let msg = '**' + user.name + " has bought " + item + ".**";
+		let msg = '**' + user.name + " ha comprado un/una " + item + ".**";
 		Rooms.rooms.staff.add('|c|~Shop Alert|' + msg);
 		Rooms.rooms.staff.update();
 		Users.users.forEach(function (user) {
@@ -132,19 +134,17 @@ function handleBoughtItem(item, user, cost) {
 }
 
 exports.commands = {
-	atm: 'wallet',
-	purse: 'wallet',
+	
+	pd: "wallet",
 	wallet: function (target, room, user) {
 		if (!this.canBroadcast()) return;
 		if (!target) target = user.name;
 
 		const amount = Db('money').get(toId(target), 0);
-		this.sendReplyBox(Tools.escapeHTML(target) + " has " + amount + currencyName(amount) + ".");
+		this.sendReplyBox("Ahoros de <b>" + Tools.escapeHTML(target) + "</b>: " + amount + currencyName(amount) + ".");
 	},
-	wallethelp: ["/wallet [user] - Shows the amount of money a user has."],
+	wallethelp: ["/pd [usuario]"],
 
-	givebuck: 'givemoney',
-	givebucks: 'givemoney',
 	givemoney: function (target, room, user) {
 		if (!this.can('forcewin')) return false;
 		if (!target || target.indexOf(',') < 0) return this.parse('/help givemoney');
@@ -158,14 +158,13 @@ exports.commands = {
 		let total = Db('money').set(toId(username), Db('money').get(toId(username), 0) + amount).get(toId(username));
 		amount = amount + currencyName(amount);
 		total = total + currencyName(total);
-		this.sendReply(username + " was given " + amount + ". " + username + " now has " + total + ".");
-		if (Users.get(username)) Users(username).popup(user.name + " has given you " + amount + ". You now have " + total + ".");
-		logMoney(username + " was given " + amount + " by " + user.name + ". " + username + " now has " + total);
+		this.sendReply(username + " has recibido " + amount + ". Ahora tiene un total de: " + total + ".");
+		if (Users.get(username)) Users(username).popup(user.name + " has recibido " + amount + ". Ahora tienes un total de: " + total + ".");
+		logMoney(username + " has recibido " + amount + ". " + username + " ahora tiene un total de: " + total);
 	},
-	givemoneyhelp: ["/givemoney [user], [amount] - Give a user a certain amount of money."],
+	givemoneyhelp: ["/givemoney [usuario], [pds] - Añadele a un usuario una cierta cantidad de pds."],
 
-	takebuck: 'takemoney',
-	takebucks: 'takemoney',
+	removemoney: 'takemoney',
 	takemoney: function (target, room, user) {
 		if (!this.can('forcewin')) return false;
 		if (!target || target.indexOf(',') < 0) return this.parse('/help takemoney');
@@ -179,25 +178,22 @@ exports.commands = {
 		let total = Db('money').set(toId(username), Db('money').get(toId(username), 0) - amount).get(toId(username));
 		amount = amount + currencyName(amount);
 		total = total + currencyName(total);
-		this.sendReply(username + " losted " + amount + ". " + username + " now has " + total + ".");
-		if (Users.get(username)) Users(username).popup(user.name + " has taken " + amount + " from you. You now have " + total + ".");
-		logMoney(username + " had " + amount + " taken away by " + user.name + ". " + username + " now has " + total);
+		this.sendReply(username + " ha perdido un total de  " + amount + ". " + username + " ahora tiene " + total + ".");
+		if (Users.get(username)) Users(username).popup(user.name + " se te ha quitado un total de " + amount + " de tus ahorros, ahora tienes " + total + ".");
+		logMoney(username + " ha perdido " + amount + ". " + username + " ahora tiene " + total);
 	},
-	takemoneyhelp: ["/takemoney [user], [amount] - Take a certain amount of money from a user."],
+	takemoneyhelp: ["/removemoney [usuario], [pds] - Quitale una cierta cantidad de pds a un usuario."],
 
-	resetbuck: 'resetmoney',
-	resetbucks: 'resetmoney',
+	removetotalmoney: 'resetmoney',
 	resetmoney: function (target, room, user) {
 		if (!this.can('forcewin')) return false;
 		Db('money').set(toId(target), 0);
-		this.sendReply(target + " now has 0 bucks.");
-		logMoney(user.name + " reset the money of " + target + ".");
+		this.sendReply(target + " ahora tiene 0 PokéDolares.");
+		logMoney(user.name + " ha llevado a un total de 0 PokéDolares los ahorros de " + target + ".");
 	},
-	resetmoneyhelp: ["/resetmoney [user] - Reset user's money to zero."],
+	resetmoneyhelp: ["/removetotalmoney [usuario] - Quitale todos los PokéDolares a un usuario."],
 
-	transfer: 'transfermoney',
-	transferbuck: 'transfermoney',
-	transferbucks: 'transfermoney',
+	donar: 'transfermoney',
 	transfermoney: function (target, room, user) {
 		if (!target || target.indexOf(',') < 0) return this.parse('/help transfermoney');
 
@@ -206,10 +202,10 @@ exports.commands = {
 		let uid = toId(username);
 		let amount = isMoney(parts[1]);
 
-		if (toId(username) === user.userid) return this.errorReply("You cannot transfer to yourself.");
-		if (username.length > 19) return this.errorReply("Username cannot be longer than 19 characters.");
+		if (toId(username) === user.userid) return this.errorReply("No puedes transferirte pds a ti mismo.");
+		if (username.length > 19) return this.errorReply("El nombre señalado supera los 19 caracteres. ¿Lo escribistes bien?.");
 		if (typeof amount === 'string') return this.errorReply(amount);
-		if (amount > Db('money').get(user.userid, 0)) return this.errorReply("You cannot transfer more money than what you have.");
+		if (amount > Db('money').get(user.userid, 0)) return this.errorReply("No puedes transferir mas pds de los que tienes.");
 
 		Db('money')
 			.set(user.userid, Db('money').get(user.userid) - amount)
@@ -219,54 +215,55 @@ exports.commands = {
 		let targetTotal = Db('money').get(uid) + currencyName(Db('money').get(uid));
 		amount = amount + currencyName(amount);
 
-		this.sendReply("You have successfully transferred " + amount + ". You now have " + userTotal + ".");
-		if (Users.get(username)) Users(username).popup(user.name + " has transferred " + amount + ". You now have " + targetTotal + ".");
-		logMoney(user.name + " transferred " + amount + " to " + username + ". " + user.name + " now has " + userTotal + " and " + username + " now has " + targetTotal + ".");
+		this.sendReply("Se ha transferido exitosamente un total de " + amount + ". Ahora tienes " + userTotal + ".");
+		if (Users.get(username)) Users(username).popup(user.name + " te ha transferido un total de " + amount + ". Ahora tienes " + targetTotal + ".");
+		logMoney(user.name + " ha trasferido un total de " + amount + " a " + username + ". " + user.name + " ahora tiene " + userTotal + " y " + username + " tiene " + targetTotal + ".");
 	},
-	transfermoneyhelp: ["/donar [user], [amount] - Transfer a certain amount of money to a user."],
+	transfermoneyhelp: ["/donar [usuario], [pds] - Transfiere una cuerta cantidad de PokéDolares a un usuario.."],
 
-	store: 'shop',
+	tienda: 'shop',
 	shop: function (target, room, user) {
 		if (!this.canBroadcast()) return;
 		return this.sendReply("|raw|" + shopDisplay);
 	},
-	shophelp: ["/shop - Display items you can buy with money."],
+	shophelp: ["/shop - Muestra la tienda del Servidor."],
 
+	comprar: "buy",
 	buy: function (target, room, user) {
 		if (!target) return this.parse('/help buy');
 		let amount = Db('money').get(user.userid, 0);
 		let cost = findItem.call(this, target, amount);
 		if (!cost) return;
 		let total = Db('money').set(user.userid, amount - cost).get(user.userid);
-		this.sendReply("You have bought " + target + " for " + cost +  currencyName(cost) + ". You now have " + total + currencyName(total) + " left.");
-		room.addRaw(user.name + " has bought <b>" + target + "</b> from the shop.");
-		logMoney(user.name + " has bought " + target + " from the shop. This user now has " + total + currencyName(total) + ".");
+		this.sendReply("Ha comprado un/una" + target + " por una cantidad de " + cost +  currencyName(cost) + ". Ahora tienes un total de " + total + currencyName(total));
+		room.addRaw(user.name + " has comprado un/una <b>" + target + "</b>. Habla con un Admin para recibir tu articulo");
+		logMoney(user.name + " ha comprado un/una" + target + ".");
 		handleBoughtItem.call(this, target.toLowerCase(), user, cost);
 	},
-	buyhelp: ["/buy [command] - Buys an item from the shop."],
+	buyhelp: ["/buy [articulo] - compra un articulo de la tienda."],
 
 	customsymbol: function (target, room, user) {
-		if (!user.canCustomSymbol && user.id !== user.userid) return this.errorReply("You need to buy this item from the shop.");
+		if (!user.canCustomSymbol && user.id !== user.userid) return this.errorReply("Para usar este comando necesitas comprarlo en la tienda.");
 		if (!target || target.length > 1) return this.parse('/help customsymbol');
 		if (target.match(/[A-Za-z\d]+/g) || '|?!+$%@\u2605=&~#\u03c4\u00a3\u03dd\u03b2\u039e\u03a9\u0398\u03a3\u00a9'.indexOf(target) >= 0) {
-			return this.errorReply("Sorry, but you cannot change your symbol to this for safety/stability reasons.");
+			return this.errorReply("Lo siento pero no puedes cambiar tu simbolo.");
 		}
 		user.customSymbol = target;
 		user.updateIdentity();
 		user.canCustomSymbol = false;
 		user.hasCustomSymbol = true;
 	},
-	customsymbolhelp: ["/customsymbol [symbol] - Get a custom symbol."],
+	customsymbolhelp: ["/customsymbol [simbolo] "],
 
 	resetcustomsymbol: 'resetsymbol',
 	resetsymbol: function (target, room, user) {
-		if (!user.hasCustomSymbol) return this.errorReply("You don't have a custom symbol.");
+		if (!user.hasCustomSymbol) return this.errorReply("No tienes un simbolo establecido.");
 		user.customSymbol = null;
 		user.updateIdentity();
 		user.hasCustomSymbol = false;
-		this.sendReply("Your symbol has been reset.");
+		this.sendReply("Tu simbolo ha sido restaurado.");
 	},
-	resetsymbolhelp: ["/resetsymbol - Resets your custom symbol."],
+	resetsymbolhelp: ["/resetsymbol"],
 
 	moneylog: function (target, room, user, connection) {
 		if (!this.can('modlog')) return;
@@ -276,10 +273,10 @@ exports.commands = {
 			numLines = Number(target);
 			matching = false;
 		}
-		let topMsg = "Displaying the last " + numLines + " lines of transactions:\n";
+		let topMsg = "Datos de las ultimas " + numLines + " acciones realizadas en relación a los PokéDolares:\n";
 		let file = path.join(__dirname, '../logs/money.txt');
 		fs.exists(file, function (exists) {
-			if (!exists) return connection.popup("No transactions.");
+			if (!exists) return connection.popup("Vacio...");
 			fs.readFile(file, 'utf8', function (err, data) {
 				data = data.split('\n');
 				if (target && matching) {
@@ -293,15 +290,13 @@ exports.commands = {
 	},
 
 	moneyladder: 'richestuser',
-	richladder: 'richestuser',
-	richestusers: 'richestuser',
 	richestuser: function (target, room, user) {
 		if (!this.canBroadcast()) return;
-		let display = '<center><u><b>Richest Users</b></u></center><br><table border="1" cellspacing="0" cellpadding="5" width="100%"><tbody><tr><th>Rank</th><th>Username</th><th>Money</th></tr>';
+		let display = '<center><u><b>Tabla de usuarios con mas dinero en el Servidor</b></u></center><br><table border="1" cellspacing="0" cellpadding="5" width="100%"><tbody><tr><th>N°</th><th>Usuario</th><th>PokéDolares</th></tr>';
 		let keys = Object.keys(Db('money').object()).map(function (name) {
 			return {name: name, money: Db('money').get(name)};
 		});
-		if (!keys.length) return this.sendReplyBox("Money ladder is empty.");
+		if (!keys.length) return this.sendReplyBox("Nadie ha obtenido PokéDolares por el momento.");
 		keys.sort(function (a, b) { return b.money > a.money; });
 		keys.slice(0, 10).forEach(function (user, index) {
 			display += "<tr><td>" + (index + 1) + "</td><td>" + user.name + "</td><td>" + user.money + "</td></tr>";
