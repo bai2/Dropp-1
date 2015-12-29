@@ -1524,7 +1524,7 @@ exports.commands = {
 		if (!this.can('declare', null, room)) return false;
 		if (!this.canTalk()) return;
 
-		this.add('|raw|<div class="broadcast-blue"><b>' + Tools.escapeHTML(target) + '</b></div>');
+		this.add('|raw|<div class="broadcast-blue"><font size="1"><i>Declare realizado por ' + user.name + '</i></font><br><b>' + Tools.escapeHTML(target) + '</b></div>');
 		this.logModCommand(user.name + " declared " + target);
 	},
 	declarehelp: ["/declare [message] - Anonymously announces a message. Requires: # & ~"],
@@ -1536,7 +1536,7 @@ exports.commands = {
 		target = this.canHTML(target);
 		if (!target) return;
 
-		this.add('|raw|<div class="broadcast-blue"><b>' + target + '</b></div>');
+		this.add('|raw|<div class="broadcast-blue"><font size="1"><i>Declare realizado por ' + user.name + '</i></font><br><b>' + target + '</b></div>');
 		this.logModCommand(user.name + " declared " + target);
 	},
 	htmldeclarehelp: ["/htmldeclare [message] - Anonymously announces a message using safe HTML. Requires: ~"],
@@ -1549,7 +1549,7 @@ exports.commands = {
 		if (!target) return;
 
 		for (let id in Rooms.rooms) {
-			if (id !== 'global') Rooms.rooms[id].addRaw('<div class="broadcast-blue"><b>' + target + '</b></div>');
+			if (id !== 'global') Rooms.rooms[id].addRaw('<div class="broadcast-blue"><font size="1"><i>Declare realizado por ' + user.name + '</i></font><br><b>' + target + '</b></div>');
 		}
 		this.logModCommand(user.name + " globally declared " + target);
 	},
@@ -1563,11 +1563,20 @@ exports.commands = {
 		if (!target) return;
 
 		for (let id in Rooms.rooms) {
-			if (id !== 'global') if (Rooms.rooms[id].type !== 'battle') Rooms.rooms[id].addRaw('<div class="broadcast-blue"><b>' + target + '</b></div>');
+			if (id !== 'global') if (Rooms.rooms[id].type !== 'battle') Rooms.rooms[id].addRaw('<div class="broadcast-blue"><font size="1"><i>Declare realizado por ' + user.name + '</i></font><br><b>' + target + '</b></div>');
 		}
 		this.logModCommand(user.name + " globally declared (chat level) " + target);
 	},
 	chatdeclarehelp: ["/cdeclare [message] - Anonymously announces a message to all chatrooms on the server. Requires: ~"],
+
+	moddeclare: 'declaremod',
+	declaremod: function(target, room, user) {
+		if (!target) return this.sendReply('/declaremod [message] - Also /moddeclare and /modmsg');
+		if (!this.can('declare', null, room)) return false;
+		if (!this.canTalk()) return;
+		this.privateModCommand('|raw|<div class="broadcast-red"><b><font size=1><i>Anuncio para todo el Staff <br /></i></font size>' + target + '</b></div>');
+		this.logModCommand(user.name + ' mod declared ' + target);
+	},
 
 	wall: 'announce',
 	announce: function (target, room, user) {

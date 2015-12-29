@@ -34,6 +34,7 @@ exports.commands = {
 		if (!this.can('givevip')) return false;
 		if (!target) return this.sendReply("Usa: /quitarhonores [usuario]");
 		if (!Users.vips[toId(target)]) return this.sendReply("El usuario \"" + target + "\" no es Contribuyente Técnico");
+		var targetUser = Users(target);
 
 		delete Users.vips[toId(target)];
 		saveVips();
