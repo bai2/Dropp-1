@@ -1,4 +1,4 @@
-var serverIp = 'dropp-kevinxzllz.c9users.io';
+var serverHost = 'dropp-ps-kevinxzllz.c9users.io';
 var http = require('http');
 var MD5 = require('MD5');
 var formatHex = '#000000'; //hex code for the formatting of the command
@@ -20,19 +20,19 @@ exports.commands = {
 			var username = target;
 			var userid = toId(target);
 			var online = false;
-			var avatar = (Config.customavatars[userid] ? "http://" + serverIp + ":" + Config.port + "/avatars/" + Config.customavatars[userid] : "http://play.pokemonshowdown.com/sprites/trainers/167.png");
+			var avatar = (Config.customavatars[userid] ? "http://" + serverHost + ":" + Config.port + "/avatars/" + Config.customavatars[userid] : "http://play.pokemonshowdown.com/sprites/trainers/167.png");
 		} else {
 			var username = targetUser.name;
 			var userid = targetUser.userid;
 			var online = targetUser.connected;
-			var avatar = (isNaN(targetUser.avatar) ? "http://" + serverIp + ":" + Config.port + "/avatars/" + targetUser.avatar : "http://play.pokemonshowdown.com/sprites/trainers/" + targetUser.avatar + ".png");
+			var avatar = (isNaN(targetUser.avatar) ? "http://" + serverHost + ":" + Config.port + "/avatars/" + targetUser.avatar : "http://play.pokemonshowdown.com/sprites/trainers/" + targetUser.avatar + ".png");
 		}
 
     	if (Users.usergroups[userid]) {
 			var userGroup = Users.usergroups[userid].substr(0,1);
 			if (Config.groups[userGroup]) userGroup = Config.groups[userGroup].name; 
 		} else {
-			var userGroup = 'Regular User';
+			var userGroup = 'Usuario';
 		}
 
 		var self = this;
@@ -61,7 +61,7 @@ exports.commands = {
 						}
 					}
 				} else {
-					regdate = '(Unregistered)';
+					regdate = '(No Registrado)';
 					showProfile();
 				}
 			});
@@ -83,13 +83,13 @@ exports.commands = {
 			var seenOutput = '';					
 			var profile = '';
                         profile += '<img src="' + avatar + '" height=80 width=80 align=left>';
-			if (!getFlag(toId(username))) profile += '&nbsp;<font color=' + formatHex + '><b>Name:</b></font> <b><font color="' + hashColor(toId(username)) + '">' + Tools.escapeHTML(username) + '</font></b><br />';
-			if (getFlag(toId(username))) profile += '&nbsp;<font color=' + formatHex + '><b>Name:</b></font> <b><font color="' + hashColor(toId(username)) + '">' + Tools.escapeHTML(username) + '</font></b>' + getFlag(toId(username)) + '<br />';
-			profile += '&nbsp;<font color=' + formatHex + '><b>Registered:</b></font> ' + regdate + '<br />';
-			if (!Users.vips[userid]) profile += '&nbsp;<font color=' + formatHex + '><b>Rank: </font></b>' + userGroup + '<br />';
-			if (Users.vips[userid]) profile += '&nbsp;<font color=' + formatHex + '><b>Rank: </font></b>' + userGroup + ' (<font color=#800000><b>Contribuyente Técnico</b></font>)<br />';
-			if (online) profile += '&nbsp;<font color=' + formatHex + '><b>Status: </font></b><font color=green>Currently Online</font><br />';
-			if (!online) profile += '&nbsp;<font color=' + formatHex + '><b>Status: </font></b><font color=red><b>OFFLINE</b><br />';
+			if (!getFlag(toId(username))) profile += '&nbsp;<font color=' + formatHex + '><b>Nombre de Usuario:</b></font> <b><font color="' + hashColor(toId(username)) + '">' + Tools.escapeHTML(username) + '</font></b><br />';
+			if (getFlag(toId(username))) profile += '&nbsp;<font color=' + formatHex + '><b>Nombre de Usuario:</b></font> <b><font color="' + hashColor(toId(username)) + '">' + Tools.escapeHTML(username) + '</font></b>' + getFlag(toId(username)) + '<br />';
+			profile += '&nbsp;<font color=' + formatHex + '><b>Registrado en: </b></font> ' + regdate + '<br />';
+			if (!Users.vips[userid]) profile += '&nbsp;<font color=' + formatHex + '><b>Rango: </font></b>' + userGroup + '<br />';
+			if (Users.vips[userid]) profile += '&nbsp;<font color=' + formatHex + '><b>Rango: </font></b>' + userGroup + ' (<font color=#800000><b>Contribuyente Técnico</b></font>)<br />';
+			if (online) profile += '&nbsp;<font color=' + formatHex + '><b>Estado: </font></b><font color=green><b>Conectado</b></font><br />';
+			if (!online) profile += '&nbsp;<font color=' + formatHex + '><b>Estado: </font></b><font color=red><b>Desconectado</b><br />';
 			profile += '<br clear="all">';
 			self.sendReplyBox(profile);
 			room.update();
