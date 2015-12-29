@@ -1,95 +1,141 @@
-'use strict';
+var fs = require('fs');
+var path = require('path');
 
-const fs = require('fs');
-const path = require('path');
-const request = require('request');
-
-const AVATAR_PATH = path.join(__dirname, '../config/avatars/');
-
-function download_image(image_url, name, extension) {
-	request
-		.get(image_url)
-		.on('error', function (err) {
-			console.error(err);
-		})
-		.on('response', function (response) {
-			if (response.statusCode !== 200) return;
-			const type = response.headers['content-type'].split('/');
-			if (type[0] !== 'image') return;
-
-			response.pipe(fs.createWriteStream(AVATAR_PATH + name + extension));
-		});
+function hasAvatar (user) {
+	if (Config.customavatars[toId(user)] && fs.existsSync('config/avatars/' + Config.customavatars[toId(user)])) 
+		return Config.customavatars[toId(user)];
+	return false;
 }
 
-function load_custom_avatars() {
-	fs.readdir(AVATAR_PATH, function (err, files) {
-		if (!files) files = [];
-		files
-			.filter(function (file) {
-				return ['.jpg', '.png', '.gif'].indexOf(path.extname(file)) >= 0;
-			})
-			.forEach(function (file) {
-				const name = path.basename(file, path.extname(file));
-				Config.customavatars[name] = file;
-			});
+function loadAvatars() {
+	var formatList = ['.png', '.gif', '.jpeg', '.jpg'];
+	fs.readdirSync('config/avatars')
+	.filter(function (avatar) {
+		return formatList.indexOf(path.extname(avatar)) > -1;
+	})
+	.forEach(function (avatar) {
+		Config.customavatars[path.basename(avatar, path.extname(avatar))] = avatar;
+	});
+}
+loadAvatars();
+
+if (Config.watchconfig) {
+	fs.watchFile(path.resolve(__dirname, 'config/config.js'), function (curr, prev) {
+		if (curr.mtime <= prev.mtime) return;
+		loadAvatars();
 	});
 }
 
-load_custom_avatars();
+var cmds = {
+	'': 'help',
+	help: function (target, room, user) {
+		if (!this.canBroadcast()) return;
+		return this.sendReplyBox('<b>Comandos para establecer avatar</b><br>' +
+			'(Para establecer un avatar deber ser ~)<br><br>' +
+			'<li>/setavatar <em>usuario</em>, <em>URL</em> - Establece un avatar a un usuario.' +
+			'<li>/deleteavatar <em>usuario</em> - Borra el avatar de un usuario.' +
+			'<li>/moveavatar <em>Usuario 1</em>, <em>Usuario 2</em> - Translada un avatar de una cuenta a otra.'
+		);
+	},
 
-exports.commands = {
-	customavatar: {
-		set: function (target, room, user) {
-			if (!this.can('customavatar')) return false;
+	add: 'set',
+	set: function (target, room, user, connection, cmd) {
+		if (!this.can('hotpatch')) return false;
+		if (!target) return this.sendReply('|html|/ca set <em>Usuario</em>, <em>URL</em> - Sets a user\'s custom avatar to the specified image.');
+		target = target.split(',');
+		if (target.length < 2)  return this.sendReply('|html|/ca set <em>User</em>, <em>URL</em> - Sets a user\'s custom avatar to the specified image.');
 
-			const parts = target.split(',');
+		var targetUser = Users.getExact(target[0]) ? Users.getExact(target[0]).name : target[0];
+		var link = target[1].trim();
+		if (!link.match(/^https?:\/\//i)) link = 'http://' + link;
+		
+		var allowedFormats = ['png', 'jpg', 'jpeg', 'gif'];
+		new Promise (function (resolve, reject) {
+			require("request").get(link)
+				.on('error', function (err) {
+					console.log(err);
+					reject("Avatar invalido, pruebas con otro.");
+				})
+				.on('response', function (response) {
+					if (response.statusCode !== 200) reject('Avatar invalido, intenta con otro.');
+					var type = response.headers['content-type'].split('/');
+					if (type[0] !== 'image') reject('Ese no es un URL valido.');
+					if (!~allowedFormats.indexOf(type[1])) reject('Formato no soportado, los formato validos son ' + allowedFormats.join(', '));
 
-			if (parts.length < 2) return this.parse('/help customavatar');
+					if (hasAvatar(targetUser)) fs.unlinkSync('config/avatars/' + Config.customavatars[toId(targetUser)]);
+					var file = toId(targetUser) + '.' + type[1];
+					response.pipe(fs.createWriteStream('config/avatars/' + file));
+					resolve(file);
+				});
+		})
+		.then(function (file) {
+			Config.customavatars[toId(targetUser)] = file;
+			var getUser = Users.getExact(targetUser);
+			if (getUser) getUser.avatar = file;
 
-			const name = toId(parts[0]);
-			const image_url = parts[1];
-			if (image_url.match(/^https?:\/\//i)) image_url = 'http://' + image_url;
-			const ext = path.extname(image_url);
-
-			if (!name || !image_url) return this.parse('/help customavatar');
-			if (['.jpg', '.png', '.gif'].indexOf(ext) < 0) {
-				return this.errorReply("Image url must have .jpg, .png, or .gif extension.");
+			var desc = 'El avatar personalizado ha sido establecido correctamente: <br><div style = "width: 80px; height: 80px; display: block"><img src = "' + link + '" style = "max-height: 100%; max-width: 100%"></div>';
+			this.sendReply('|html|' + targetUser + '\'s ' + desc);
+			if (getUser) {
+				getUser.send('|html|' + user.name + ' tu avatar ha sido establecido correctamente, reinicia la pagina y lo podras ver.');
+				getUser.popup('|html|<center>Tu ' + desc + '<br>Reinicia la pagina para poder ver tu nuevo avatar</center>');
 			}
+		}.bind(this))
+		.catch (function (err) {
+			this.errorReply('Error en establecer el avatar de ' + targetUser + err);
+		}.bind(this));
+	},
 
-			Config.customavatars[name] = name + ext;
+	remove: 'delete',
+	'delete': function (target, room, user, connection, cmd) {
+		if (!this.can('hotpatch')) return false;
+		if (!target || !target.trim()) return this.sendReply('|html|/' + cmd + ' <em>Usuario</em> - Quitale el avatar a un usuario.');
+		target = Users.getExact(target) ? Users.getExact(target).name : target;
+		var avatars = Config.customavatars;
+		if (!hasAvatar(target)) return this.errorReply(target + ' no tiene un avatar establecido.');
 
-			download_image(image_url, name, ext);
-			this.sendReply(parts[0] + "'s avatar has been set.");
-		},
-
-		delete: function (target, room, user) {
-			if (!this.can('customavatar')) return false;
-
-			const userid = toId(target);
-			const image = Config.customavatars[userid];
-
-			if (!image) {
-				return this.errorReply("This user does not have a custom avatar");
-			}
-
-			delete Config.customavatars[userid];
-
-			fs.unlink(AVATAR_PATH + image, function (err) {
-				if (err && err.code === 'ENOENT') {
-					this.errorReply("This user's avatar does not exist.");
-				} else if (err) {
-					console.error(err);
-				}
-				this.sendReply("This user's avatar has been successfully removed.");
-			}.bind(this));
-		},
-
-		'': 'help',
-		help: function (target, room, user) {
-			this.parse('/help customavatar');
+		fs.unlinkSync('config/avatars/' + avatars[toId(target)]);
+		delete avatars[toId(target)];
+		this.sendReply('El avatar de' + target + 'ha sido removido exitosamente');
+		if (Users.getExact(target)) {
+			Users.getExact(target).send('Tu avatar ha sido removido.');
+			Users.getExact(target).avatar = 1;
 		}
 	},
-	customavatarhelp: ["Commands for /customavatar are:",
-	"/customavatar set [username], [image link] - Set a user's avatar.",
-	"/customavatar delete [username] - Delete a user's avatar."]
+	
+	shift: 'move',
+	move: function (target, room, user, connection, cmd) {
+		if (!this.can('hotpatch')) return false;
+		if (!target || !target.trim()) return this.sendReply('|html|/moveavatar <em>Usuario 1</em>, <em>Usuario 2</em> - Mueve el avatar de una cuenta a otra.');
+		target = target.split(',');
+		if (target.length < 2) return this.sendReply('|html|/moveavatar <em>Usuario 1</em>, <em>Usuario 2</em> - Mueve el avatar de una cuenta a otra.');
+
+		var user1 = (Users.getExact(target[0]) ? Users.getExact(target[0]).name : target[0]);
+		var user2 = (Users.getExact(target[1]) ? Users.getExact(target[1]).name : target[1]);
+		if (!toId(user1) || !toId(user2)) return this.sendReply('|html|/moveavatar <em>Usuario 1</em>, <em>Usuario 2</em> - Mueve el avatar de una cuenta a otra.');
+		var user1Av = hasAvatar(user1);
+		var user2Av = hasAvatar(user2);
+		if (!user1Av) return this.errorReply(user1 + ' no tiene un avatar establecido.');
+
+		var avatars = Config.customavatars;
+		if (hasAvatar(user2)) fs.unlinkSync('config/avatars/' + user2Av);
+		var newAv = toId(user2) + path.extname(user1Av);
+		fs.renameSync('config/avatars/' + user1Av, 'config/avatars/' + newAv);
+		delete avatars[toId(user1)];
+		avatars[toId(user2)] = newAv;
+		if (Users.getExact(user1)) Users.getExact(user1).avatar = 1;
+		if (Users.getExact(user2)) {
+			Users.getExact(user2).avatar = newAv;
+			Users.getExact(user2).send(user.name + ' ha removido el avatar de' + user1 + 'Reinicia la pagina para poner apreciar tu nuevo avatar');
+		}
+		return this.sendReply('La transferencia del avatar de ' + user1 + 'ha sido exitosa. Ahora el avatar se encuentra en ' + user2 + '.');
+	}
 };
+
+exports.commands = {
+	ca: 'customavatar',
+	customavatar: cmds,
+	moveavatar: cmds.move,
+	deleteavatar: 'removeavatar',
+	removeavatar: cmds.delete,
+	setavatar: cmds.set
+}
