@@ -321,7 +321,7 @@ exports.grouplist = [
 		symbol: '%',
 		id: "driver",
 		name: "Driver",
-		inherit: '+',
+		inherit: '\u2295',
 		jurisdiction: 'u',
 		announce: true,
 		warn: '\u2605u',
@@ -337,6 +337,14 @@ exports.grouplist = [
 		tournamentsmoderation: true,
 		jeopardy: true,
 		joinbattle: true
+	},
+	{
+		symbol: '\u2295',
+		id: "operator",
+		name: "Operator",
+		inherit: '+',
+		tournamentsmoderation: true,
+		tournaments: true
 	},
 	{
 		symbol: '+',
