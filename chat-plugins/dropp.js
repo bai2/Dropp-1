@@ -116,4 +116,13 @@ exports.commands = {
 		this.sendReplyBox(header + official.join(' ') + nonOfficial.join(' ') + privateRoom.join(' ') + (groupChats.length > 1 ? groupChats.join(' ') : '') + (battleRooms.length > 1 ? battleRooms.join(' ') : ''));
     },
 	
+	divinedeclare: function (target, room, user) {
+		if (user.userid !== 'airgetlam') return this.errorReply('Solo airgetlam puede hacer este declare.');
+		if (!target) return this.parse('/help divinedeclare');
+		if (!this.canTalk()) return;
+
+		this.add('|raw|<div class="broadcast-divine"><font size="1"><i>La staff mas sexy ha declarado:</i></font><br><b>' + Tools.escapeHTML(target) + '</b></div>');
+		this.logModCommand(user.name + " declared " + target);
+	},
+	declarehelp: ["/declare [message] - Anonymously announces a message. Requires: # & ~"],
 }
