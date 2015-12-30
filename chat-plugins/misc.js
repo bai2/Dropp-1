@@ -4,6 +4,7 @@
 
 'use strict';
 
+let fs = require('fs');
 let moment = require('moment');
 let request = require('request');
 
@@ -41,33 +42,63 @@ function clearRoom(room) {
 }
 
 exports.commands = {
-	stafflist: 'authority',
-	auth: 'authority',
-	authlist: 'authority',
-	authority: function (target, room, user, connection) {
-		let rankLists = {};
-		let ranks = Object.keys(Config.groups);
-		for (let u in Users.usergroups) {
-			let rank = Users.usergroups[u].charAt(0);
-			// In case the usergroups.csv file is not proper, we check for the server ranks.
-			if (ranks.indexOf(rank) > -1) {
-				let name = Users.usergroups[u].substr(1);
-				if (!rankLists[rank]) rankLists[rank] = [];
-				if (name) rankLists[rank].push(((Users.getExact(name) && Users.getExact(name).connected) ? '**' + name + '**' : name));
+	
+	serverstaff: "stafflist",
+	stafflist: function(target, room, user, connection) {
+		fs.readFile('config/usergroups.csv', 'utf8', function(err, data) {
+			var staff = {
+				"admins": [],
+				"leaders": [],
+				"mods": [],
+				"drivers": [],
+				"operators": [],
+				"voices": []
+			};
+			var row = ('' + data).split('\n');
+			for (var i = row.length; i > -1; i--) {
+				if (!row[i]) continue;
+				var rank = row[i].split(',')[1].replace("\r", '');
+				var person = row[i].split(',')[0];
+				function nameColor (name) {
+					if (Users.getExact(name) && Users(name).connected) {
+						return '<b><i><font color="' + hashColor(name) + '">' + Tools.escapeHTML(Users.getExact(name).name) + '</font></i></b>';
+					} else {
+						return '<font color="' + hashColor(name) + '">' + Tools.escapeHTML(name) + '</font>';
+					}
+				}
+				switch (rank) {
+					case '~':
+						staff['admins'].push(nameColor(person));
+						break;
+					case '&':
+						staff['leaders'].push(nameColor(person));
+						break;
+					case '@':
+						staff['mods'].push(nameColor(person));
+						break;
+					case '%':
+						staff['drivers'].push(nameColor(person));
+						break;
+					case '\u2295':
+						staff['operators'].push(nameColor(person));
+						break;
+					case '+':
+						staff['voices'].push(nameColor(person));
+						break;
+					default:
+						continue;
+				}
 			}
-		}
-
-		let buffer = [];
-		Object.keys(rankLists).sort(function (a, b) {
-			return (Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank;
-		}).forEach(function (r) {
-			buffer.push((Config.groups[r] ? r + Config.groups[r].name + "s (" + rankLists[r].length + ")" : r) + ":\n" + rankLists[r].sort().join(", "));
+			connection.popup('|html|' +
+				'<h3>Staff del Servidor Dropp</h3>' +
+				'<b>Administradores (~)</b>:<br />' + staff['admins'].join(', ') +
+				'<br /><br /><b>Lideres (&)</b>:<br />' + staff['leaders'].join(', ') +
+				'<br /><br /><b>Moderadores (@)</b>:<br />' + staff['mods'].join(', ') +
+				'<br /><br /><b>Conductores (%)</b>:<br />' + staff['drivers'].join(', ') +
+				'<br /><br /><b>Operadores (⊕)</b>:<br />' + staff['operators'].join(',')+
+				'<br /><br /><b>Voceros (+)</b>:<br />' + staff['voices'].join(', ') 
+			);
 		});
-
-		if (!buffer.length) {
-			return connection.popup("This server has no auth.");
-		}
-		connection.popup(buffer.join("\n\n"));
 	},
 
 	clearall: function (target, room, user) {

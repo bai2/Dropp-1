@@ -252,14 +252,14 @@ exports.grouplist = [
 	{
 		symbol: '~',
 		id: "admin",
-		name: "Administrator",
+		name: "Administrador",
 		root: true,
 		globalonly: true
 	},
 	{
 		symbol: '&',
 		id: "leader",
-		name: "Leader",
+		name: "Líder",
 		inherit: '@',
 		jurisdiction: '@u',
 		promote: 'u',
@@ -281,7 +281,7 @@ exports.grouplist = [
 	{
 		symbol: '#',
 		id: "owner",
-		name: "Room Owner",
+		name: "Jefe de Sala",
 		inherit: '@',
 		jurisdiction: 'u',
 		roommod: true,
@@ -295,7 +295,7 @@ exports.grouplist = [
 	{
 		symbol: '\u2605',
 		id: "player",
-		name: "Player",
+		name: "Jugador",
 		inherit: '+',
 		roomvoice: true,
 		modchat: true,
@@ -306,7 +306,7 @@ exports.grouplist = [
 	{
 		symbol: '@',
 		id: "mod",
-		name: "Moderator",
+		name: "Moderador",
 		inherit: '%',
 		jurisdiction: 'u',
 		ban: true,
@@ -320,7 +320,7 @@ exports.grouplist = [
 	{
 		symbol: '%',
 		id: "driver",
-		name: "Driver",
+		name: "Conductor",
 		inherit: '\u2295',
 		jurisdiction: 'u',
 		announce: true,
