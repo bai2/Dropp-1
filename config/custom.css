@@ -1,0 +1,879 @@
+/*************************
+* Css del Servidor Dropp *
+*************************/
+
+body {
+	background-image: url("http://41.media.tumblr.com/099aaf26db67cbf57dfce7518c859bbd/tumblr_n2d9crcX2L1s2i16to1_1280.jpg")!important
+}
+.ps-room.ps-room-light {
+	background: rgba(242, 244, 240, 0.8);
+	border-color: #11484F;
+}
+.ps-room.ps-room-light.scrollable {
+	background: rgba(242, 244, 240, 0.8);
+}
+.ps-room.ps-room-light.scrollable h3 {
+	background: rgba(242, 244, 240, 0.8);
+	text-shadow: 0px 0px 2px #11484F;
+}
+.ps-room.ps-room-light.scrollable p {
+	background: rgba(242, 244, 240, 0.8);
+	text-shadow: 0px 0px 2px #96BFB8;
+}
+.ps-room.ps-room-light.scrollable .button {
+	background: rgba(242, 244, 240, 0.8);
+	border: 1px solid #11484F;
+	color: #11484F;
+	text-shadow: 0px 0px 2px #96BFB8;
+}
+.ps-room.ps-room-light.scrollable .button:hover {
+	background: rgba(242, 244, 240, 0.8);
+	border-color: #0C2D32;
+}
+.chat.mine {
+	background: rgba(242, 244, 240, 0.8);
+}
+.broadcast-blue {
+	background: #A9D0F5;
+	border: 1px solid #086A87;
+	color: #086A87;
+	text-align: center;
+	text-shadow: 0px 0px 2px #A9D0F5;
+	font-family: sans-serif;
+	padding: 8px;
+	margin: 5px;
+}
+.broadcast-blue a {
+	color: #01A9DB;
+}
+.broadcast-blue button {
+	background: #01A9DB;
+	border: 1px solid #086A87;
+	color: #FFF9FF;
+	text-shadow: 0px 0px 2px #086A87;
+	padding: 2px 8px;
+}
+.broadcast-blue button:hover {
+	background: #00BFFF;
+}
+.broadcast-red {
+	background: #F7819F;
+	border: 1px solid #B52C43;
+	color: #B52C43;
+	text-shadow: 0px 0px 2px #F2DBE5;
+	text-align: center;
+	font-family: sans-serif;
+	padding: 8px;
+	margin: 5px;
+}
+.broadcast-red a {
+	color: #B3001E;
+}
+.broadcast-green {
+	background: #81F781;
+	border: 1px solid #3ADF00;
+	color: #31B404;
+	text-shadow: 0px 0px 2px #A4C786;
+	text-align: center;
+	font-family: sans-serif;
+	padding: 8px;
+	margin: 5px;
+}
+.broadcast-green a {
+	color: #005C3E;
+}
+.ps-overlay {
+	background: rgba(242, 244, 240, 0.8);
+}
+/******************* * General CSS ~end * *******************/
+/************* * Header CSS * *************/
+
+.header {
+	background: rgba(18, 167, 255, 0.4) url("http://i67.tinypic.com/9b96aa.png") no-repeat;
+}
+.header .logo {
+	opacity: 0;
+}
+.maintabbarbottom {
+	border-color: #0489B1;
+	background: #81DAF5;
+}
+.tabbar a.button.notifying {
+	background: #E0F8F1;
+	border-color: #0489B1;
+	color: #F7819F;
+	font-style: italic;
+}
+.button.subtle-notifying {
+	color: #F7819F;
+}
+.tabbar a.button.notifying:hover {
+	background: #E0F8F1;
+	border-color: #0489B1;
+	color: #01A9DB;
+}
+.tabbar a.button.cur,
+.tabbar a.button.cur:hover {
+	border-color: #0489B1;
+	background: #81DAF5;
+	color: #0489B1;
+}
+.tabbar a.button {
+	border-color: #0489B1;
+	background: #81DAF5;
+	color: #0489B1;
+	text-shadow: none;
+}
+.tabbar a.button:hover {
+	background: #CEF6F5;
+}
+.tabbar .closebutton {
+	color: #0B4C5F;
+}
+.tabbar .closebutton:hover {
+	color: #CEF6F5;
+}
+.userbar {
+	border: 1px solid #b6b6b6;
+	padding: 5px;
+	background: #EBEBEB;
+	margin-top: -5px;
+}
+.userbar button.icon {
+	border: 1px solid #0489B1;
+	background: #58D3F7;
+	color: #0489B1;
+}
+.userbar button.icon:hover {
+	background: #CEF6F5;
+}
+.userbar .username {
+	text-shadow: none;
+}
+/****************** * Header CSS ~end * ******************/
+/***************** * Roomlist CSS * ***************/
+
+.roomlist h2 {
+	color: #0489B1;
+	text-shadow: none;
+}
+.roomlist a.ilink,
+.roomcounters button {
+	background: #58D3F7;
+	border-color: #0489B1;
+	color: #0489B1;
+	text-shadow: none;
+}
+.roomlist a.ilink:hover,
+.roomcounters button:hover {
+	background: #CEF6F5;
+	border-color: #CEF6F5;
+	color: #0489B1;
+	text-shadow: none;
+}
+/******************** * Roomlist CSS ~end * ********************/
+/*********** * Chat CSS * ***********/
+
+.userlist {
+	background: rgba(242, 244, 240, 0.8);
+}
+.userlist li {
+	background: rgba(242, 244, 240, 0.8);
+}
+.userlist li em.group {
+	color: #0489B1;
+}
+.userlist li button:hover,
+.userlist-minimized .userlist-count:hover {
+	background: rgba(255, 255, 255, 0.5);
+}
+.infobox {
+	background: rgba(255, 255, 255, 0.8);
+	border-color: #0B4C5F;
+}
+.chat-log {
+	background: rgba(242, 244, 240, 0.8) url("http://orig12.deviantart.net/8e2c/f/2009/064/1/9/pixel_over_empoleon_by_upchuck2.png") top right no-repeat;
+}
+.chat-log .chat small {
+	color: #0489B1;
+}
+.chat-log .chat.mine.chat small {
+	color: #0489B1;
+}
+.chat.highlighted {
+	background: #CEF6F5;
+}
+.chat-log-add {
+	background: rgba(255, 255, 255, 0.7);
+	color: #FFF;
+}
+.chat-log-add .textbox {
+	background: rgba(242, 244, 240, 0.8);
+	border-color: #336251;
+}
+.chatbox label {
+	background: rgba(242, 244, 240, 0.8);
+	text-shadow: none;
+}
+/**************** * Chat CSS ~end * ****************/
+/******************* * Tournaments CSS * ******************/
+
+.tournament-title {
+	background: #CEF6F5;
+	border-color: #0489B1;
+	text-shadow: none;
+	color: #086A87;
+}
+.tournament-status,
+.tournament-toggle {
+	background: #E0F8F1;
+	border-color: #E0F8F1;
+	text-shadow: none;
+	color: #11484F;
+}
+.tournament-tools {
+	border-color: #0489B1;
+	background: #CEF6F5;
+}
+.tournament-tools .select {
+	border-color: #0489B1;
+	background: #E0F8F1;
+	color: #0489B1;
+	text-shadow: none
+}
+.tournament-tools .select:hover {
+	background: #CEF6F5;
+}
+.tournament-tools .select:disabled,
+.tournament-tools .select:disabled:hover {
+	background: #E0F8F1;
+	color: #11484F !important;
+	text-shadow: none !important;
+	border-color: #11484F !important;
+}
+.tournament-tools button {
+	border-color: #0489B1;
+	background: #E0F8F1;
+	color: #0489B1;
+	text-shadow: none;
+}
+.tournament-tools button:hover {
+	background: #CEF6F5;
+}
+.tournament-wrapper,
+.tournament-box {
+	border-color: #0489B1;
+}
+.tournament-box {
+	background: #E0F8F1;
+}
+/*********************** * Tournaments CSS ~end * ***********************/
+/********************** * Mainmenuwrapper CSS * **********************/
+
+.menugroup {
+	border: 1px solid #58D3F7;
+	background: rgba(92, 235, 255, 0.2);
+	color: #FBE7F0;
+	text-shadow: 0px 0px 2px #803C6F;
+}
+.menugroup .select,
+.menugroup .button {
+	background: #58D3F7 !important;
+	border-color: #0489B1 !important;
+	color: #0489B1 !important;
+	text-shadow: none !important;
+	font-style: italic !important;
+}
+.menugroup .select:hover,
+.menugroup .button:hover {
+	background: #CEF6F5 !important;
+	border-color: #803C6F !important;
+	color: #0489B1 !important;
+	text-shadow: none !important;
+	font-style: italic !important;
+}
+.menugroup .select:disabled,
+.menugroup .select:disabled:hover {
+	background: rgba(255, 255, 255, 0.7) !important;
+	border-color: #086A87 !important;
+	color: #0489B1 !important;
+	text-shadow: none !important;
+	font-style: italic !important;
+}
+.pm-window h3 {
+	border-color: #0489B1;
+	background: #58D3F7;
+	background-position: 210px;
+	color: #086A87;
+	text-shadow: none;
+}
+.pm-window h3:hover {
+	background: #CEF6F5;
+	background-position: 210px;
+	color: #0489B1;
+}
+.pm-window h3 small {
+	color: #81DAF5;
+}
+.pm-window.focused h3,
+.pm-window.focused h3:hover {
+	border-color: #336251;
+	background: #81DAF5;
+	background-position: 210px;
+	color: #E5FFF6;
+	text-shadow: 0px -1px 0px #336251;
+}
+.pm-window h3:hover .minimizebutton,
+.pm-window h3 .closebutton,
+.pm-window h3 .minimizebutton {
+	color: #0489B1;
+}
+.pm-window h3 .closebutton:hover {
+	color: #CEF6F5;
+}
+.pm-window h3 .minimizebutton:hover {
+	color: #CEF6F5;
+}
+.pm-window h3 .closebutton:hover + .minimizebutton {
+	color: #CEF6F5 !important;
+}
+.message-pm {
+	color: #46806A;
+}
+.pm-window h3.pm-notifying {
+	border-color: #803C6F;
+	background: #81DAF5;
+	color: #FA5882;
+	text-shadow: none;
+}
+.pm-window h3.pm-notifying:hover {
+	background: #CEF6F5;
+}
+.pm-window h3.pm-notifying small {
+	color: #CEF6F5;
+}
+.pm-window h3.pm-notifying .closebutton,
+.pm-window h3.pm-notifying .minimizebutton {
+	color: #086A87;
+}
+.pm-window h3.pm-notifying .closebutton:hover {
+	color: #F7819F;
+}
+.pm-window h3.pm-notifying .minimizebutton:hover {
+	color: #086A87;
+}
+.pm-window h3.pm-notifying .closebutton:hover + .minimizebutton {
+	color: #086A87 !important;
+}
+.pm-log,
+.pm-window.focused .pm-log {
+	border-color: #0489B1;
+}
+.challenge {
+	border-color: #0489B1;
+	background: #CEF6F5;
+	color: #0489B1;
+	text-shadow: none;
+}
+.challenge .select {
+	border-color: #0489B1;
+	background: #E0F8F1;
+	color: #0489B1;
+	text-shadow: none
+}
+.challenge .select:hover {
+	background: #EEFBF7;
+}
+.challenge .select:disabled {
+	background: rgba(255, 255, 255, 0.7);
+}
+.challenge .select.preselected,
+.challenge .select.preselected:disabled {
+	color: #0489B1;
+}
+.challenge .buttonbar button {
+	border: 1px solid #0489B1;
+	background: #E0F8F1;
+	color: #0489B1;
+	text-shadow: 0px 0px 2px #FCE8F1;
+	padding: 2px 5px;
+}
+.challenge .buttonbar button:hover {
+	background: #EEFBF7;
+}
+.pm-log-add {
+	border-color: #0489B1;
+	background: #58D3F7;
+}
+.pm-window.focused .pm-log-add {
+	border-color: #0489B1;
+	background: #58D3F7;
+}
+.pm-log-add .textbox {
+	border-color: #58D3F7;
+}
+.mainmenufooter a {
+	color: #FFE1B3;
+}
+.mainmenufooter a:hover {
+	color: #F2D19C;
+}
+.mainmenufooter {
+	color: #F2D19C;
+}
+/*************************** * Mainmenuwrapper CSS ~end * ***************************/
+/************ * Popup CSS * ************/
+
+.ps-popup {
+	background: #F5FCFA;
+	border-color: #0489B1;
+}
+.ps-popup a,
+.credits h2,
+.credits ul {
+	color: #0489B1;
+	text-shadow: none;
+}
+.ps-popup a:hover {
+	color: #173B40;
+}
+.ps-popup a.ilink.yours {
+	color: #0489B1;
+}
+.ps-popup a.ilink.yours:hover {
+	color: #01A9DB;
+}
+.ps-popup .buttonbar button {
+	background: #E0F8F1;
+	border: 1px solid #0489B1;
+	padding: 2px 5px;
+	color: #0489B1;
+	text-shadow: none;
+}
+.ps-popup .buttonbar button:hover {
+	background: #F5FCFA;
+}
+.popupmenu h3 {
+	color: #0489B1;
+	text-shadow: none;
+}
+.popupmenu button.sel {
+	border-color: #E0F8F1;
+}
+.popupmenu button:hover,
+.popupmenu button.sel:hover {
+	border-color: #11484F;
+	background: #F5FCFA;
+}
+a.subtle,
+a.subtle:hover {
+	color: #000;
+}
+.avatarlist button {
+	border-color: #11484F;
+}
+.avatarlist button:hover {
+	border-color: #0489B1;
+	background-color: #E0F8F1;
+}
+.effect-volume em,
+.music-volume em {
+	color: #E0F8F1;
+}
+.ps-popup hr {
+	border: none;
+	border-bottom: 1px solid #062529;
+}
+/***************** * Popup CSS ~end * *****************/
+/************* * Ladder CSS * *************/
+
+.ladder th {
+	background: rgba(242, 244, 240, 0.8);
+	color: #803C6F;
+	text-shadow: 0px 0px 2px #FCE8F1;
+}
+.ladder td {
+	background: rgba(255, 246, 250, 0.75);
+	color: #803C6F;
+	text-shadow: 0px 0px 2px #FCE8F1;
+}
+.ladder td:hover {
+	background: rgba(255, 246, 250, 0.95);
+}
+.ladder table,
+.ladder td,
+.ladder th {
+	border-color: #803C6F;
+}
+/****************** * Ladder CSS ~end * ******************/
+/****************** * Teambuilder CSS * ******************/
+
+.teamchartbox {
+	border-color: #11484F;
+}
+.teamlist .team {
+	background: #E0F8F1;
+	border-color: #0489B1;
+	color: #0489B1;
+	text-shadow: none;
+}
+.teamlist .team:hover {
+	background: #BBCCC9;
+	border-color: #0E3339;
+	color: #0E3339;
+	text-shadow: none;
+}
+.setchart {
+	border-color: #0489B1;
+	background: #E0F8F1;
+}
+.setchart-nickname {
+	background: #E0F8F1;
+	border-color: #0489B1;
+}
+.setchart input,
+.setdetails,
+.setstats,
+.statform input.inputform {
+	border-color: #0489B1;
+}
+.setchart input:hover,
+.setdetails:hover,
+.setstats:hover,
+.statform input.inputform:hover {
+	border-color: #0489B1;
+}
+.setchart .setdetails label,
+.setchart .setstats label {
+	color: #0489B1;
+	text-shadow: none;
+}
+.setchart label {
+	text-shadow: none;
+	color: #0489B1;
+}
+.setchart-nickname label {
+	text-shadow: none;
+	color: #0489B1;
+}
+.setchart-nickname input {
+	border-color: #0489B1;
+}
+.setchart-nickname input:hover {
+	border-color: #0489B1;
+}
+.setchart input.incomplete {
+	background: #FFF5FA;
+	color: #0489B1;
+	border-color: #0489B1;
+}
+.teambuilder-results {
+	background: rgba(255, 255, 255, 0.3);
+}
+.teambuilder-results h3,
+.teambuilder-results .utilichart h3 {
+	border-color: #0489B1 !important;
+	background: #F3C5EA !important;
+	color: #803C6F !important;
+	text-shadow: none !important;
+}
+.teambuilder-results .firstresult a {
+	background: #BBCCC9;
+	border-color: #11484F;
+}
+.teambuilder-results .firstresult a:hover,
+.teambuilder-results .result a:hover {
+	background: #CBE1DD;
+	border-color: #0C2D32;
+}
+.utilichart b {
+	color: #11484F;
+	text-shadow: 0px 0px 2px #96BFB8;
+	font-style: italic;
+}
+.utilichart .movenamecol,
+.utilichart .namecol,
+.utilichart .pokemonnamecol {
+	color: #062529;
+	text-shadow: 0px 0px 2px #96BFB8;
+}
+.utilichart .itemdesccol,
+.utilichart .abilitydesccol,
+.utilichart .movedesccol,
+.utilichart .statcol,
+.utilichart .bstcol,
+.utilichart .labelcol,
+.utilichart .widelabelcol,
+.utilichart .pplabelcol,
+.utilichart .abilitycol,
+.utilichart .twoabilitycol {
+	color: #11484F;
+}
+.utilichart .labelcol em,
+.utilichart .widelabelcol em,
+.utilichart .pplabelcol em,
+.utilichart .statcol em,
+.utilichart .bstcol em {
+	color: #1B606B;
+}
+.utilichart .numcol {
+	color: #5B274D;
+	text-shadow: 0px 0px 2px #FCE8F1;
+}
+.utilichart .typecol img {
+	opacity: 0.75;
+}
+.teambar button {
+	background: #BBCCC9;
+	border-color: #11484F;
+	color: #11484F;
+	text-shadow: 0px 0px 2px #96BFB8;
+}
+.teambar button:hover,
+.teambar button:disabled,
+.teambar button:disabled:hover,
+.teambar button:disabled:active {
+	background: #BBCCC9;
+	border-color: #0E3339;
+	color: #0E3339;
+	text-shadow: none;
+}
+.setmenu button {
+	color: #5B274D;
+	text-shadow: 0px 0px 2px #FCE8F1;
+}
+.setmenu button:hover {
+	border-color: #803C6F !important;
+	background: #F3C5EA !important;
+	color: #803C6F !important;
+	text-shadow: none !important;
+}
+.statform p.suggested button {
+	background: #BBCCC9;
+	border: 1px solid #11484F;
+	color: #11484F;
+	text-shadow: 0px 0px 2px #96BFB8;
+	padding: 2px 5px;
+}
+.statform p.suggested button:hover {
+	background: #CBE1DD;
+	border-color: #0C2D32;
+}
+.statform p.suggested a {
+	color: #11484F;
+}
+.statform .col div label,
+.statform .col div em,
+.detailsform label {
+	color: #062529;
+	text-shadow: 0px 0px 2px #96BFB8;
+}
+.statform .col div b {
+	color: #031315;
+	text-shadow: 0px 0px 2px #96BFB8;
+}
+.jslider .jslider-label {
+	opacity: 1;
+	color: #062529;
+}
+.jslider .jslider-value {
+	background: #CBE1DD;
+	border: 1px solid #0C2D32;
+	color: #11484F;
+	text-shadow: 0px 0px 2px #96BFB8;
+}
+/*********************** * Teambuilder CSS ~end * ***********************/
+/************* * Battle CSS * *************/
+
+.ps-room.ps-room-opaque {
+	background: rgba(242, 244, 240, 0.8);
+}
+.ps-room .battle-controls {
+	background: rgba(242, 244, 240, 0.8);
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.battle-log {
+	background: rgba(242, 244, 240, 0.8);
+	border-color: #0489B1;
+}
+.battle-log h2 {
+	border-color: #0489B1;
+	background: #E0F8F1;
+	color: #0489B1;
+	text-shadow: none;
+	text-align: center;
+}
+.battle-log h2:hover {
+	color: #642F56;
+}
+.battle-log .rated strong {
+	border-color: #0489B1;
+	background: #E0F8F1;
+	color: #803C6F;
+	text-shadow: none;
+	border: 1px solid #803C6F;
+	padding: 3px 6px;
+}
+.battle-log .chat strong {
+	color: #0489B1;
+}
+.battle-log-add {
+	border-color: #0489B1;
+	background: #E0F8F1;
+}
+.battle-log-add .chatbox label {
+	text-shadow: none;
+}
+.battle-log-add .textbox {
+	border-color: #0489B1;
+}
+.turnstatus-protect {
+	background: url(http://i.imgur.com/RVxCoHz.png);
+	opacity: 1 !important;
+	height: 103px !important;
+	width: 150px !important;
+	border-radius: 0;
+	border-width: 0;
+	box-shadow: none;
+	opacity: 0.9;
+}
+.sidecondition-safeguard {
+	background: url(http://i.imgur.com/FrCoWCW.png);
+	opacity: 0.6 !important;
+	height: 90px !important;
+	width: 130px !important;
+	border-radius: 0;
+	opacity: 0.9;
+	border-width: 0;
+	box-shadow: none;
+}
+.sidecondition-reflect {
+	background: url(http://i.imgur.com/X1XDxVB.png);
+	opacity: 0.7 !important;
+	height: 90px !important;
+	width: 130px !important;
+	border-radius: 0;
+	border-width: 0;
+	opacity: 0.9;
+	box-shadow: none;
+}
+.sidecondition-lightscreen {
+	background: url(http://i.imgur.com/8eLftNA.png);
+	opacity: 0.6 !important;
+	height: 90px !important;
+	width: 130px !important;
+	opacity: 0.9;
+	border-radius: 0;
+	border-width: 0;
+	box-shadow: none;
+}
+.backdrop {
+	background: #E0F8F1;
+	opacity: 0.6;
+}
+.battle {
+	border-color: #0489B1 !important;
+}
+.rightbar,
+.leftbar {
+	background: rgba(242, 244, 240, 0.8);
+	border-color: #0489B1;
+}
+.trainer strong {
+	color: #0489B1;
+	text-shadow: none;
+}
+.trainer div {
+	opacity: 1;
+}
+.battle-controls .whatdo {
+	color: #0489B1;
+}
+.battle-controls .whatdo small {
+	border-color: #0489B1;
+}
+.moveselect button,
+.switchselect button {
+	color: #E0F8F1 !important;
+	text-shadow: none !important;
+}
+.switchmenu button {
+	background: #E0F8F1 !important;
+	border-color: #0489B1 !important;
+	color: #0489B1 !important;
+	text-shadow: none!important;
+}
+.switchmenu button:hover {
+	background: #F5FCFA !important;
+	border-color: #0489B1 !important;
+	color: #0489B1 !important;
+	text-shadow: none !important;
+}
+.switchmenu button .hpbar {
+	border-color: #0E3339;
+}
+.switchmenu button.disabled,
+.switchmenu button:disabled {
+	background: #EFF8FB !important;
+	border: 2px solid #0489B1 !important;
+	color: #0E3339 !important;
+	font-weight: bold !important;
+	text-shadow: none !important;
+}
+.statbar .hpbar {
+	background: #222C47 none repeat scroll 0 0;
+	border: 1px solid #222C47;
+}
+.movemenu button:disabled {
+	background: #F5FCFA;
+	border: 2px solid #0E3339;
+	color: #0E3339;
+	font-weight: bold;
+	text-shadow: none;
+}
+.movemenu button:disabled .movemenu button small.pp,
+.movemenu button:disabled .movemenu button small.type {
+	text-shadow: none;
+	color: #F5FCFA;
+}
+.movemenu button {
+	border: 1px solid #0E3339 !important;
+}
+#tooltipwrapper {
+	position: absolute;
+	top: 400px;
+	left: 100px;
+	text-align: left;
+	color: #0489B1;
+	text-shadow: 0px 0px 2px #96BFB8;
+}
+#tooltipwrapper .tooltipinner {
+	position: relative;
+}
+#tooltipwrapper .tooltip {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 300px;
+	background: #F5FCFA;
+	border-color: #11484F;
+	border-radius: 1px;
+}
+#tooltipwrapper .tooltip h2 {
+	padding: 2px 4px;
+	margin: 0;
+	border-bottom: 1px solid #11484F;
+	font-size: 10pt;
+	color: #0489B1;
+	text-shadow: 0px 0px 2px #96BFB8;
+}
+#tooltipwrapper .tooltip p {
+	padding: 2px 4px;
+	margin: 0;
+	font-size: 8pt;
+}
+#tooltipwrapper .tooltip p.section {
+	border-top: 1px solid #11484F;
+}
+/*Battle CSS ~end*/
