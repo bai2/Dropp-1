@@ -904,10 +904,10 @@ a.subtle:hover {
     background: rgba(244, 244, 244, 0.8) url("http://www.pokestadium.com/assets/img/sprites/misc/ranger2/darkrai.png") right no-repeat;
   }
 
-  #staff-userlist-user-airgetlam, #httpwwwpokestadiumcomassetsimgspritesmisciconsbeautiflypng-userlist-user-airgetlam { 
-    background: rgba(244, 244, 244, 0.8) url("lobby") right no-repeat;
-  }
-
   #lobby-userlist-user-sawsora, #staff-userlist-user-sawsora, #-userlist-user-sawsora { 
     background: rgba(244, 244, 244, 0.8) url("http://www.narutohq.com/images/rocklee-2.gif") right no-repeat;
+  }
+
+  #lobby-userlist-user-airgetlam, #staff-userlist-user-airgetlam, #reinosymphogear-userlist-user-airgetlam, #warroom1-userlist-user-airgetlam, #ligadropp-userlist-user-airgetlam { 
+    background: rgba(244, 244, 244, 0.8) url("http://www.pokestadium.com/assets/img/sprites/misc/icons/beautifly.png") right no-repeat;
   }
