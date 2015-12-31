@@ -888,3 +888,26 @@ a.subtle:hover {
 	border-top: 1px solid #11484F;
 }
 /*Battle CSS ~end*/
+
+  #lobby-userlist-user-sharedo, #staff-userlist-user-sharedo, #droppshop-userlist-user-sharedo { 
+    background: rgba(244, 244, 244, 0.8) url("http://i.imgur.com/wNOZSxa.png") right no-repeat;
+  }
+  #lobby-userlist-user-kingswordyt,#staff-userlist-user-kingswordyt,#aldeaocultadelashojas-userlist-user-kingswordyt,#warroom1-userlist-user-kingswordyt,#ligadropp-userlist-user-kingswordyt {
+	background: url("http://www.pkparaiso.com/imagenes/pokedex/xy-icons/675.png") right no-repeat;
+}
+
+  #eventos-userlist-user-jeidel, #casino-userlist-user-jeidel, #aldeaocultadelashojas-userlist-user-jeidel, #warroom1-userlist-user-jeidel, #warroom2-userlist-user-jeidel { 
+    background: rgba(244, 244, 244, 0.8) url("http://icons.iconarchive.com/icons/hektakun/pokemon/72/384-Rayquaza-icon.png") right no-repeat;
+  }
+
+  #lobby-userlist-user-haxnyancat1, #staff-userlist-user-haxnyancat1, #staffsuperior-userlist-user-haxnyancat1 { 
+    background: rgba(244, 244, 244, 0.8) url("http://www.pokestadium.com/assets/img/sprites/misc/ranger2/darkrai.png") right no-repeat;
+  }
+
+  #staff-userlist-user-airgetlam, #httpwwwpokestadiumcomassetsimgspritesmisciconsbeautiflypng-userlist-user-airgetlam { 
+    background: rgba(244, 244, 244, 0.8) url("lobby") right no-repeat;
+  }
+
+  #lobby-userlist-user-sawsora, #staff-userlist-user-sawsora, #-userlist-user-sawsora { 
+    background: rgba(244, 244, 244, 0.8) url("http://www.narutohq.com/images/rocklee-2.gif") right no-repeat;
+  }
